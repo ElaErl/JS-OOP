@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>your page title goes here</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+
+      function makeCar(accelRate, brakeRate) {
+        return {
+          speed: 0,
+          accelRate: accelRate,
+          brakeRate: brakeRate,
+          accelerate: function() {
+            this.speed += this.accelRate;
+          },
+          brake: function() {
+            this.speed -= this.brakeRate;
+            if (this.speed < 0) {
+              this.speed = 0;
+            }
+          },
+        };
+      }
+
+      function makeCountry(country, continent, visited) {
+        if (visited === undefined) {
+          visited = false;
+        }
+
+        return {
+          country: country,
+          continent: continent,
+          visited: visited,
+          visitCountry: function() {
+            this.visited = true;
+          },
+          getDescription: function() {
+            return console.log(this.country + ' is located in ' + this.continent + (this.visited ? 'I have ' : 'I havent ') + 'visit ' + this.country);
+          },
+        };
+      }
+
+      var chile = makeCountry('The Republic of Chile', 'South America');
+      var canada = makeCountry('Canada', 'North America');
+      var southAfrica = makeCountry('The Republic of South Africa', 'Africa');
+
+      chile.getDescription();       // "The Republic of Chile is located in South America."
+      canada.getDescription();      // "Canada is located in North America."
+      southAfrica.getDescription(); // "The Republic of South Africa is located in Africa."
+
+      canada.getDescription(); // "Canada is located in North America. I haven't visited Canada."
+      canada.visitCountry();
+      canada.getDescription();
+
+    </script>
+  </body>
+</html>

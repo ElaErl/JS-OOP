@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>your page title goes here</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      var invoices = {
+        unpaid: [],
+        paid: [],
+        add: function(string, num) {
+          this.unpaid.push({
+            name: string, 
+            amount: num,
+          });
+        },
+        payInvoice: function(name) {
+          var newArr = [];
+          this.unpaid.forEach(function(object) {
+            if (object.name === name) {
+              invoices.paid.push(object);
+            } else {
+              newArr.push(object);
+            }
+          });
+          this.unpaid = newArr;
+        },
+      };
+
+          invoices.add('Due North Development', 250);
+      invoices.add('Moonbeam Interactive', 187.50);
+      invoices.add('Slough Digital', 300);
+
+      invoices.totalDue = function() {
+        var total = 0;
+        this.unpaid.forEach(function(object) {
+          total += object.amount;
+        });
+        return total;
+      }
+
+      invoices.totalPaid = function() {
+        var total = 0;
+        this.paid.forEach(function(object) {
+          total += object.amount;
+        });
+        return total;
+      }
+
+
+
+      invoices.payInvoice('Due North Development');
+      invoices.payInvoice('Slough Digital');
+      console.log(invoices.totalPaid());
+      console.log(invoices.totalDue());
+
+
+
+
+    </script>
+  </body>
+</html>
